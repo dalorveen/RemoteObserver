@@ -210,13 +210,15 @@ vecByte response(char* input, int size)
 		if (hWnd != NULL)
 		{
 			RECT rect;
-			GetWindowRect(hWnd, &rect);
+			//GetWindowRect(hWnd, &rect);
+			GetClientRect(hWnd, &rect);
 			
 			ATL::CImage* image_ = new CImage();
 			image_->Create(rect.right - rect.left, rect.bottom - rect.top, 32);;
 			
 			HDC device_context_handle = image_->GetDC();
 			PrintWindow(hWnd, device_context_handle, PW_CLIENTONLY);
+			//PrintWindow(hWnd, device_context_handle, PW_RENDERFULLCONTENT); for WIN 8.1+
 
 			//SIZE_OF_OBJECT_DATA
 			vecByte buf;
