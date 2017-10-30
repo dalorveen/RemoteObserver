@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace MissionControlCenter
 {
     public partial class Dashboard : Form
     {
+        Image _snapshot;
+
         public Dashboard()
         {
             InitializeComponent();
@@ -52,21 +50,22 @@ namespace MissionControlCenter
             }
         }
 
+        private void Snapshot()
+        {
+            object response = TCPClient.Utility.Dialogue("<image>" + (string)comboBox_windowTitle.SelectedItem);
+            var snapshot = response as Image;
+            if (snapshot != null)
+            {
+                pictureBox_snapshot.Image = snapshot;
+            }
+            _snapshot = snapshot;
+        }
+
         private void comboBox_windowTitle_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            ComboBox cb = sender as ComboBox;
-            if (cb != null)
+            if (!string.IsNullOrEmpty(comboBox_windowTitle.SelectedItem as string))
             {
-                string title = (string)cb.SelectedItem;
-                if (!string.IsNullOrEmpty(title))
-                {
-                    object response = TCPClient.Utility.Dialogue("<image>" + title);
-                    var snapshot = response as Image;
-                    if (snapshot != null)
-                    {
-                        pictureBox_snapshot.Image = snapshot;
-                    }
-                }
+                Snapshot();
             }
         }
 
@@ -97,12 +96,12 @@ namespace MissionControlCenter
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            object response = TCPClient.Utility.Dialogue("<image>" + (string)comboBox_windowTitle.SelectedItem);
-            var snapshot = response as Image;
-            if (snapshot != null)
-            {
-                pictureBox_snapshot.Image = snapshot;
-            }
+            Snapshot();
+        }
+
+        private void button_updateImage_Click(object sender, EventArgs e)
+        {
+            Snapshot();
         }
 
         private void numericUpDown_interval_ValueChanged(object sender, EventArgs e)
@@ -121,6 +120,27 @@ namespace MissionControlCenter
                 "The format for this operation:\n" +
                 "\t<0x5B+R><N><O><T><E><P><A><D><0x0D><H><I>\n";
             MessageBox.Show(message, "Format", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void button_saveImage_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png;*.bmp;*.jpg";
+            ImageFormat format = ImageFormat.Png;
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string ext = System.IO.Path.GetExtension(sfd.FileName);
+                switch (ext)
+                {
+                    case ".jpg":
+                        format = ImageFormat.Jpeg;
+                        break;
+                    case ".bmp":
+                        format = ImageFormat.Bmp;
+                        break;
+                }
+                _snapshot.Save(sfd.FileName, format);
+            }
         }
     }
 }

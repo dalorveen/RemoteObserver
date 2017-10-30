@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.button_connect = new System.Windows.Forms.Button();
             this.groupBox_sending = new System.Windows.Forms.GroupBox();
+            this.label_help = new System.Windows.Forms.Label();
             this.textBox_simulated = new System.Windows.Forms.TextBox();
             this.label_simulated = new System.Windows.Forms.Label();
             this.label_windowTitle = new System.Windows.Forms.Label();
@@ -43,7 +44,8 @@
             this.label_serverIPPort = new System.Windows.Forms.Label();
             this.textBox_ip = new System.Windows.Forms.TextBox();
             this.textBox_port = new System.Windows.Forms.TextBox();
-            this.label_help = new System.Windows.Forms.Label();
+            this.button_updateImage = new System.Windows.Forms.Button();
+            this.button_saveImage = new System.Windows.Forms.Button();
             this.groupBox_sending.SuspendLayout();
             this.groupBox_snapshot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_interval)).BeginInit();
@@ -74,6 +76,19 @@
             this.groupBox_sending.TabIndex = 3;
             this.groupBox_sending.TabStop = false;
             this.groupBox_sending.Text = "Sending";
+            // 
+            // label_help
+            // 
+            this.label_help.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label_help.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_help.Location = new System.Drawing.Point(430, 46);
+            this.label_help.Margin = new System.Windows.Forms.Padding(0);
+            this.label_help.Name = "label_help";
+            this.label_help.Size = new System.Drawing.Size(20, 20);
+            this.label_help.TabIndex = 7;
+            this.label_help.Text = "?";
+            this.label_help.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_help.Click += new System.EventHandler(this.label_help_Click);
             // 
             // textBox_simulated
             // 
@@ -117,6 +132,8 @@
             // 
             // groupBox_snapshot
             // 
+            this.groupBox_snapshot.Controls.Add(this.button_saveImage);
+            this.groupBox_snapshot.Controls.Add(this.button_updateImage);
             this.groupBox_snapshot.Controls.Add(this.numericUpDown_interval);
             this.groupBox_snapshot.Controls.Add(this.button_loop);
             this.groupBox_snapshot.Controls.Add(this.pictureBox_snapshot);
@@ -209,18 +226,25 @@
             this.textBox_port.TabIndex = 4;
             this.textBox_port.Text = "49073";
             // 
-            // label_help
+            // button_updateImage
             // 
-            this.label_help.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label_help.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_help.Location = new System.Drawing.Point(430, 46);
-            this.label_help.Margin = new System.Windows.Forms.Padding(0);
-            this.label_help.Name = "label_help";
-            this.label_help.Size = new System.Drawing.Size(20, 20);
-            this.label_help.TabIndex = 7;
-            this.label_help.Text = "?";
-            this.label_help.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label_help.Click += new System.EventHandler(this.label_help_Click);
+            this.button_updateImage.Location = new System.Drawing.Point(6, 19);
+            this.button_updateImage.Name = "button_updateImage";
+            this.button_updateImage.Size = new System.Drawing.Size(104, 23);
+            this.button_updateImage.TabIndex = 7;
+            this.button_updateImage.Text = "UPDATE IMAGE";
+            this.button_updateImage.UseVisualStyleBackColor = true;
+            this.button_updateImage.Click += new System.EventHandler(this.button_updateImage_Click);
+            // 
+            // button_saveImage
+            // 
+            this.button_saveImage.Location = new System.Drawing.Point(116, 19);
+            this.button_saveImage.Name = "button_saveImage";
+            this.button_saveImage.Size = new System.Drawing.Size(104, 23);
+            this.button_saveImage.TabIndex = 8;
+            this.button_saveImage.Text = "SAVE IMAGE";
+            this.button_saveImage.UseVisualStyleBackColor = true;
+            this.button_saveImage.Click += new System.EventHandler(this.button_saveImage_Click);
             // 
             // Dashboard
             // 
@@ -266,6 +290,8 @@
         private System.Windows.Forms.Label label_windowTitle;
         private System.Windows.Forms.TextBox textBox_simulated;
         private System.Windows.Forms.Label label_help;
+        private System.Windows.Forms.Button button_saveImage;
+        private System.Windows.Forms.Button button_updateImage;
     }
 }
 
